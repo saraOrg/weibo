@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <include file="Public/head"/>
+</head>
+<body>
+<!-- 头部 -->
+<include file="Public/header"/>
+<!-- /头部 -->
+<div class="game-container">
+    <div class="message-content clearfix">
+        <div class="message-info">
+            <div class="message-nav">
+                <ul class="msg-navlist">
+                    <li><a href="#" class="current" data-type="1" data-price='{$allowprice.yeepay}'>网上银行</a></li>
+                    <li><a href="#" data-type="2" data-price='{$allowprice.alipay}'>支付宝余额</a></li>
+                    <li><a href="#" data-type="3" data-price='{$allowprice.vbi}'>电话V币充值</a></li>
+                    <li><a href="#" data-type="4" data-price='{$allowprice.szx}'>神州行充值</a></li>
+                    <li><a href="#" data-type="5" data-price='{$allowprice.dx}'>手机短信充值</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="message-game">
+            <div class="lh-pay-container">
+                <form target="_blank" action="{:U('Home/recharge/exec_recharge')}" id="rech-form" method="post">
+                    <div class="lh-pay-form">
+                    <div class="pay-item">
+                        <label class="lh-form-label">游戏选择：</label>
+                        <div class="collection">
+                            <select name="payinfo[game]" class="zone-slt" id="game-hook">
+                                <option value="">请选择</option>
+                                <volist name="game_list" id="vo">
+                                    <option value="{$vo.id}">{$vo.name}</option>
+                                </volist>
+                            </select>
+                            <span class="tip-msg"></span>
+                        </div>
+                    </div>
+                    <div class="pay-item">
+                        <label class="lh-form-label">服务大区：</label>
+                        <div class="collection">
+                            <select name="payinfo[zone]" class="zone-slt" id="zone-hook" disabled="disabled">
+                                <option value="">请选择</option>
+                            </select>
+                            <span class="tip-msg"></span>
+                        </div>
+                    </div>
+                    <div class="pay-item">
+                        <label class="lh-form-label">充值账号：</label>
+                        <div class="collection">
+                            <input type="text" name="payinfo[username]" value="" id="username" class="lh-form-txt" autocomplete="off" onpaste="return false" placeholder="请输入您的通行证账号" />
+                            <span class="tip-msg"></span>
+                        </div>
+                    </div>
+                    <div class="pay-item">
+                        <label class="lh-form-label">确认账号：</label>
+                        <div class="collection">
+                            <input type="text" name="payinfo[verifyusername]" value="" id="verifyusername" class="lh-form-txt" autocomplete="off" onpaste="return false" placeholder="请确认通行证账号" />
+                            <span class="tip-msg"></span>
+                        </div>
+                    </div>
+                    <div class="pay-item pay-item-s">
+                        <label class="lh-form-label pd">充值金额：</label>
+                        <div class="collection">
+                            <span class="tip-msg"></span>
+                            <ul class="pay-money clearfix" id="pay-money">
+                                <li>
+                                    <label class="money-num" for="10k">
+                                        <div class="fl-b">
+                                            <input type="radio" id="10k" class="rdo-m" name="payinfo[price]" value="10" />
+                                            <span class="txt">10<em>元</em></span>
+                                        </div>
+                                        <span class="fr-s">1000银</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="money-num" for="20k">
+                                        <div class="fl-b">
+                                            <input type="radio" id="20k" class="rdo-m" name="payinfo[price]" value="20" />
+                                            <span class="txt">20<em>元</em></span>
+                                        </div>
+                                        <span class="fr-s">2000银</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="money-num" for="30k">
+                                        <div class="fl-b">
+                                            <input type="radio" id="30k" class="rdo-m" name="payinfo[price]" value="30" />
+                                            <span class="txt">30<em>元</em></span>
+                                        </div>
+                                        <span class="fr-s">3000银</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="money-num" for="50k">
+                                        <div class="fl-b">
+                                            <input type="radio" id="50k" class="rdo-m" name="payinfo[price]" value="50" />
+                                            <span class="txt">50<em>元</em></span>
+                                        </div>
+                                        <span class="fr-s">5000银</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="money-num" for="100k">
+                                        <div class="fl-b">
+                                            <input type="radio" id="100k" class="rdo-m" name="payinfo[price]" value="100" />
+                                            <span class="txt">100<em>元</em></span>
+                                        </div>
+                                        <span class="fr-s">10000银</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="money-num" for="500k">
+                                        <div class="fl-b">
+                                            <input type="radio" id="500k" class="rdo-m" name="payinfo[price]" value="500" />
+                                            <span class="txt">500<em>元</em></span>
+                                        </div>
+                                        <span class="fr-s">50000银</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pay-item pay-item-s" id="bank-list">
+                        <label class="lh-form-label pd">选择银行：</label>
+                        <div class="collection">
+                            <span class="tip-msg"></span>
+                            <ul class="pay-bank clearfix" id="bank-hook">
+                                <volist id='vo' name='banks'>
+                                    <li>
+                                        <label class="pay-lbl" for="{$vo.pd_FrpId}">
+                                            <input type="radio" id="{$vo.pd_FrpId}" value='{$vo.pd_FrpId}' name="payinfo[bank]" class="bank-ico" />
+                                            <span class="img"><img src="{$vo.pd_FrpLogo}" alt="{$vo.pd_FrpName}" disabled=""></span>
+                                        </label>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pay-item">
+                        <label class="lh-form-label">验证码：</label>
+                        <div class="collection">
+                            <input type="text" id="code" name="payinfo[code]" class="reg-ipt reset-i"  placeholder="输入验证码" />
+                            <span class="form-imgsp">
+                                <img id="code_img" src="{:U('home/user/verify')}" onclick='this.src=this.src+"&"+Math.random()' />
+                            </span>
+                            <a href="#" class="change-code" onclick="$('#code_img').click();return false;">看不清<br>换一个</a>
+                            <span class="tip-msg"></span>
+                        </div>
+                    </div>
+                    <div class="rech-post">
+                        <input type="hidden" name="payinfo[payid]" value="1" id="pay_type" />
+                        <input type="hidden" name="payinfo[paycode]" value="yeepay" id="pay_code" />
+                        <input type="submit" class="real-rech" name="dosubmit" value="充 值" id="pay-sbt" />
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Public/footer"/>
+<script type="text/javascript">
+    $(function(){
+        seajs.use("./Public/Home/js/recharge.js",function(recharge){
+            recharge.init();
+        });
+    });
+</script>
+</body>
+</html>
